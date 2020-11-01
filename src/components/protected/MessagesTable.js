@@ -1,40 +1,77 @@
 import React from 'react';
-import {Button,Table} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import _ from 'lodash';
+import { Table , Button, Segment ,Input} from 'semantic-ui-react'
 
 class MessagesTable extends React.Component{
+
+    state = {
+        textValue:''
+    };
+
+
+    handelChange(e){
+        this.setState({textValue:e.target.value})
+
+    }
+
 
     renderRecivedOrSent(message){
         switch(this.props.type){
             case "recived":
-                return `From: ${message.user.email}`
+                return `${message.user.email}`;
             case "sent":
-                return `To: ${message.senderEmail}`
+                return `${message.senderEmail}`;
+            default:
+                return "";
         }
-
-        
     }
 
     renderTable(){
-        return this.props.messages.map((message)=>{
+        const {textValue} = this.state;
+        let orderBy = _.orderBy(this.props.messages, ['id'],['desc']);
+        
+        return orderBy.filter(message=>{
+            if (textValue.toLowerCase() === '') return true
+            if  (message.subject.includes(textValue.toLowerCase()) || message.message.includes(textValue.toLowerCase()) ){
+                return true
+            }
+        }).map((message)=>{
             return(
-                <tr key={message.id}>
-                    <td>{this.renderRecivedOrSent(message)}</td>
-                    <td>{message.subject} - {message.message}</td>
-                    <td>DELETE</td>
-                </tr>
+                <Table.Row key={message.id}>
+                    <Table.Cell width={3}>{this.renderRecivedOrSent(message)}</Table.Cell>
+                    <Table.Cell><Link to={`/inbox/${message.id}`}> {message.subject} - {message.message}</Link></Table.Cell>
+                    <Table.Cell width={2} textAlign='center'><Button variant="secondary" as={Link} to={`/inbox/delete/${message.id}`}>Delete</Button></Table.Cell>
+                </Table.Row>
             )
         });
-
     }
 
+
+
     render(){
-        console.log(this.props)
+        const {tableHeader,messages} = this.props;
         return(
-            <Table striped bordered hover>
-                <tbody>
-                    {this.renderTable()}
-                </tbody>
-            </Table>
+            <Segment>
+                {messages.length <= 1 ? null : <Input onChange={(e)=>this.handelChange(e)} icon='search' iconPosition='left' placeholder='Search...' />}
+                <Table celled striped >
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell colSpan='3'>{tableHeader}</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>{this.props.type === 'recived' ? 'From' : 'To'}</Table.HeaderCell>
+                            <Table.HeaderCell>Subject and Content</Table.HeaderCell>
+                            <Table.HeaderCell></Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                        {this.renderTable()}
+                    </Table.Body>
+                </Table>
+            </Segment>
         )
     }
 }

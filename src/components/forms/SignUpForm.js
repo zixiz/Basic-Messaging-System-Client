@@ -1,9 +1,9 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
-import { Button, Form, Header, Message, Segment } from 'semantic-ui-react';
-import {Link} from 'react-router-dom';
+import { Button, Form, Header, Message, Segment } from 'semantic-ui-react'
 
-class SignInForm extends React.Component{
+
+class SignUpForm extends React.Component{
 
     renderError({error,touched}){
         if(touched && error){
@@ -28,6 +28,7 @@ class SignInForm extends React.Component{
         this.props.onSubmit(formValues);
     }
 
+
     render(){
         const {handleSubmit, pristine, submitting,title,serverError,screen_loader_active} = this.props;
         return(
@@ -38,23 +39,21 @@ class SignInForm extends React.Component{
                     </Header>
                     <Field icon='mail' name="email" type="text" component={this.renderInput} label="Enter Email"/>
                     <Field icon='lock' name="password"  type="password" component={this.renderInput} label="Enter Password"/>
-                    <Button loading={screen_loader_active} color='teal' fluid size='large' type="submit" disabled={pristine || submitting}>
-                        Sign In
-                    </Button>
+                    <Field icon='user' name="full_name" type="text" component={this.renderInput} label="Enter A Full Name"/>
                     {serverError && (
                         <Message negative>{serverError}</Message>
                     )}
-                    <Message>
-                        New to us? <Link to="/signup">Sign Up</Link>
-                    </Message>
-                </Segment>                
+                    <Button loading={screen_loader_active} color='teal' fluid size='large' type="submit" disabled={pristine || submitting}>
+                        Sign Up
+                    </Button>
+                </Segment>
             </Form>
         )
     }
 }
 
 
-  const validate= (formValue) =>{
+ const validate= (formValue) =>{
     const errors={};
 
     if(formValue.email){
@@ -71,11 +70,15 @@ class SignInForm extends React.Component{
         errors.password = 'You must enter a Password'
     }
 
+    if(!formValue.full_name){
+        errors.full_name = "You must enter a Full Name"
+    }
+
 
     return errors;
 }
 
 export default reduxForm({
-    form:'signIn',
+    form:'singUp',
     validate
-})(SignInForm);
+})(SignUpForm);

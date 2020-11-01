@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {Navbar,Nav,Button} from 'react-bootstrap';
-import {PersonLinesFill} from 'react-bootstrap-icons';
+import {Menu,Icon} from "semantic-ui-react";
 import {connect} from 'react-redux';
 import {isAuth,signOut} from '../actions';
+import UserDataMenu from './protected/UserDataMenu'
 
 class Header extends React.Component{
 
@@ -12,44 +12,48 @@ class Header extends React.Component{
     }
 
     renderUserLinks(){
-        if(this.props.isLoggedIn){
+        const {full_name,isLoggedIn, email} = this.props;
+        if(isLoggedIn){
             return(
-                <Nav className="ml-auto">
-                    <Nav.Link as={Link} to="/messages" >Messages</Nav.Link>
-                    <Nav.Link as={Link} to="/messages/sent" >Sent</Nav.Link>
-                    <Nav.Link as={Link} to="/compose">Compose</Nav.Link>
-                    <Nav.Link>
-                        <PersonLinesFill color="black" size={20}/>
-                    </Nav.Link>
-                    <Button size="sm" variant="outline-light" onClick={()=>this.props.signOut()}>Sign Out</Button>
-                </Nav>
+                <React.Fragment>
+                    <Menu.Item as={Link} to="/inbox" >Inbox</Menu.Item>
+                    <Menu.Item as={Link} to="/inbox/sent" >Sent</Menu.Item>
+                    <Menu.Item as={Link} to="/compose">Compose</Menu.Item>
+                    <Menu.Item >
+                        <UserDataMenu full_name={full_name} email={email}/>
+                    </Menu.Item> 
+                    <Menu.Item onClick={()=>this.props.signOut()}>
+                        <Icon name='sign out alternate' circular />
+                        Sign Out
+                    </Menu.Item>
+                </React.Fragment>
             )
         }
         return (
-            <Nav className="ml-auto">
-                <Nav.Link as={Link}to="/" className="nav-link">Sign In</Nav.Link>
-                <Nav.Link >Sign Up</Nav.Link>
-            </Nav>
+            <React.Fragment>
+                <Menu.Item as={Link} to="/" className="nav-link">Sign In</Menu.Item>
+                <Menu.Item as={Link} to="/signup" className="nav-link">Sign Up</Menu.Item>
+            </React.Fragment>
         )
     }
     
 
     render(){
+        const {isLoggedIn} = this.props;
         return(
-            <Navbar bg="primary" variant="dark" expand="lg">
-                {this.props.isLoggedIn ? <Navbar.Brand as={Link} to="/messages">Messaging Sys</Navbar.Brand>:
-                <Navbar.Brand as={Link} to="/">Messaging Sys</Navbar.Brand>}
-                <Navbar.Toggle aria-controls="sys-navbar" />
-                <Navbar.Collapse id="sys-navbar">
+            <Menu pointing fluid inverted>
+                {isLoggedIn ? <Menu.Item  as={Link} to="/inbox">Home</Menu.Item>:
+                <Menu.Item as={Link} to="/">Messaging Sys</Menu.Item>}
+                <Menu.Menu position="right" id="sys-navbar">
                     {this.renderUserLinks()}
-                </Navbar.Collapse>
-            </Navbar>
+                </Menu.Menu>
+            </Menu>
             )
     }
 }
 
 const mapStateToProps = (state) =>{
-    return {isLoggedIn:state.auth.isLoggedIn,full_name: state.auth.full_name}
+    return {isLoggedIn:state.auth.isLoggedIn,full_name: state.auth.full_name ,email: state.auth.email}
 }
 
 

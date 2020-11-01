@@ -1,16 +1,17 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
-import history from '../Helpers/History';
-
+import CustomeModal from '../components/Modal';
+import {Button} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
 
 const Unauthorized = () =>{
-
+    
     return(
-        <div>
-            Unauthorized, Please Sign In First
-            <br />
-            <Button variant="primary" onClick={()=>history.push("/")}>Sign In</Button>
-        </div>
+        <CustomeModal 
+        closeModalPath={'/'} 
+        title="You Unauthorized"
+        icon="lock"
+        content="Please Sign In Before!"
+        actions={<Button as={Link} to={'/'} color="blue">SignIn</Button>}/>
     )
 }
 
