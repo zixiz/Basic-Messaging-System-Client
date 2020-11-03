@@ -1,12 +1,13 @@
 import React from 'react'; 
 import {connect} from 'react-redux';
 import {fetachReciveMessages,clearEmptyMessages} from '../../../actions';
-import MessagesTable from '../MessagesTable';
-import {Grid, Button } from 'semantic-ui-react';
+import MessagesTable from '../table/MessagesTable';
+import { Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import EmptyComponent from '../EmptyComponent';
+import EmptyComponent from '../table/EmptyMessages';
 import ScreenLoader from '../../ScreenLoader';
-import MessagesSubMenu from '../MessagesSubMenu';
+
+import {PATH} from '../../../helpers/Constants';
 
 class RecivedMessages extends React.Component {
 
@@ -22,9 +23,7 @@ class RecivedMessages extends React.Component {
 
     renderActions(){
         return (
-            <React.Fragment>
-                <Button as={Link} to={'/compose'}>Compose</Button>
-            </React.Fragment>
+                <Button as={Link} to={PATH.COMPOSE}>Compose</Button>
         )
     }
 
@@ -42,20 +41,13 @@ class RecivedMessages extends React.Component {
     }
 
     render(){
-        const {screen_loader_active,match} = this.props;
+        const {screen_loader_active} = this.props;
         return (
-                <Grid stackable padded={true}>
-                    <ScreenLoader active={screen_loader_active}/>
-                    <Grid.Row>
-                    <Grid.Column width={3}>
-                       <MessagesSubMenu path={match.path}/>
-                    </Grid.Column>
-                    <Grid.Column width={12}>
-                        {this.renderEmptyOrTable()}
-                    </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            )
+            <>
+                <ScreenLoader active={screen_loader_active}/>
+                {this.renderEmptyOrTable()}
+            </>
+        )
     }
     
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchMessage,cleareFailedShowMessage} from '../../actions'
+import {fetchMessage,cleareFailedShowMessage} from '../../../actions'
 import MessageView from './MessageView';
-import CustomModal from '../Modal';
-import {Button, Grid} from 'semantic-ui-react';
+import CustomModal from '../../modal/Modal';
+import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
-import ScreenLoader from '../ScreenLoader';
-
+import ScreenLoader from '../../ScreenLoader';
+import {PATH} from '../../../helpers/Constants';
 
 class ShowMessage extends React.Component{
 
@@ -27,7 +27,10 @@ class ShowMessage extends React.Component{
             return null
         }
         if(failed_show_message){
-            return <CustomModal icon="thumbs down" closeModalPath='/inbox' title={message.error} content="Ho no, it seems like you try to reach a message that you can't view" actions={<Button as={Link} to={'/inbox'} color="blue">Back to inbox</Button>}/>
+            return <CustomModal icon="thumbs down" closeModalPath={PATH.INBOX} 
+                                title={message.error} 
+                                content="Ho no, it seems like you try to reach a message that you can't view" 
+                                actions={<Button as={Link} to={PATH.INBOX} color="blue">Back to inbox</Button>}/>
         }else{
             if(message.sender === user.userId){
                 return <MessageView header={`Message ${match.params.id}`} sent={user.email} reciver={mail.email} subject={message.subject} content={message.message}/>
@@ -41,12 +44,10 @@ class ShowMessage extends React.Component{
     render(){
         const {screen_loader_active} = this.props;
         return (
-            <Grid stackable centered columns={2}>
-                <Grid.Column>
-                    <ScreenLoader active={screen_loader_active}/>
-                    {this.renderMessageView()}  
-                </Grid.Column>
-            </Grid>
+            <>
+                <ScreenLoader active={screen_loader_active}/>
+                {this.renderMessageView()}  
+            </>
         );
     } 
 };

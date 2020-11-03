@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container} from 'semantic-ui-react';
-import history from '../Helpers/History';
 import {Router,Route,Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {serverErrorCleanUp} from '../actions'
+import {PATH} from '../helpers/Constants';
+import {serverErrorCleanUp} from '../actions';
+import history from '../helpers/History';
 
-import Header from './Header';
+import Header from './menu/Header';
 import SignIn from './public/SignIn';
 import SignUp from './public/SignUp';
 import NoFound from './public/NoFound';
@@ -14,10 +15,10 @@ import NoFound from './public/NoFound';
 import InternalServerError from './InternalServerError';
 import RecivedMessages from './protected/inbox/RecivedMessages';
 import sentMessages from './protected/sent/sentMessages';
-import Compose from './protected/Compose'
-import PrivateRoute from './PrivateRoute';
-import ShowMessage from './protected/ShowMessage';
-import DeleteMessage from './protected/DeleteMessage';
+import Compose from './protected/create/Compose';
+import PrivateRoute from './menu/PrivateRoute';
+import ShowMessage from './protected/message/ShowMessage';
+import DeleteMessage from './protected/delete/DeleteMessage';
 
 class App extends React.Component{
 
@@ -32,13 +33,13 @@ class App extends React.Component{
                 <Router history={history}>
                     <Header/>
                     <Switch>
-                        <Route path="/" exact component={SignIn} />
-                        <Route path="/signup" exact component={SignUp} />
-                        <PrivateRoute exact path="/inbox" component={RecivedMessages}/>
-                        <PrivateRoute exact path="/inbox/sent" component={sentMessages}/>
-                        <PrivateRoute exact path="/inbox/:id" component={ShowMessage}/>
-                        <PrivateRoute exact path="/inbox/delete/:id" component={DeleteMessage}/>
-                        <PrivateRoute path="/compose" exact component={Compose} />
+                        <Route path={PATH.SIGN_IN} exact component={SignIn} />
+                        <Route path={PATH.SIGN_UP} exact component={SignUp} />
+                        <PrivateRoute exact path={PATH.INBOX} component={RecivedMessages}/>
+                        <PrivateRoute exact path={PATH.SENT} component={sentMessages}/>
+                        <PrivateRoute exact path={PATH.SHOW_MESSAGE} component={ShowMessage}/>
+                        <PrivateRoute exact path={PATH.DELETE_MESSAGE} component={DeleteMessage}/>
+                        <PrivateRoute path={PATH.COMPOSE} exact component={Compose} />
                         <Route path="*" component={NoFound} />
                     </Switch>
                 {serverError && <InternalServerError dismiss={this.cleanServerError} serverErrorMessage={serverErrorMessage} />}

@@ -52,8 +52,7 @@ class SignUpForm extends React.Component{
     }
 }
 
-
- const validate= (formValue) =>{
+const validate= (formValue) =>{
     const errors={};
 
     if(formValue.email){

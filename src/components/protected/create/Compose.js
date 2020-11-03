@@ -1,7 +1,7 @@
 import React from 'react'; 
 import {connect} from 'react-redux';
-import {fetchUsers,createMessage} from '../../actions';
-import ComposeForm from '../forms/ComposeForm';
+import {fetchUsers,createMessage} from '../../../actions';
+import ComposeForm from '../../forms/ComposeForm';
 import {Grid} from 'semantic-ui-react';
 
 class Compose extends React.Component {
@@ -17,7 +17,7 @@ class Compose extends React.Component {
     render(){
         const {screen_loader_active} = this.props;
         return (
-        <Grid textAlign='center' style={{ height: '90vh' }} verticalAlign='middle'>
+        <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 550 }}>
                 <ComposeForm screen_loader_active={screen_loader_active} header='Compose' onSubmit={this.onSubmit} users={this.props.users} />
             </Grid.Column>

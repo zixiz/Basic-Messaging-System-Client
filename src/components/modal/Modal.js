@@ -1,6 +1,6 @@
 import React  from 'react';
 import ReactDOM from 'react-dom';
-import history from '../Helpers/History';
+import history from '../../helpers/History';
 import { Header, Modal} from 'semantic-ui-react';
 
 const CustomeModal = ({title,actions,content,closeModalPath,icon}) =>{

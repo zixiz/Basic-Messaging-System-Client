@@ -13,7 +13,7 @@ export default (state=INITIAL_STATE,action) =>{
             return {...state , screen_loader_active:true};
 
         case DISABLE_SCREENLOADER:
-            return {...state , screen_loader_active:false};
+            return {...state , ...INITIAL_STATE};
 
         default:
             return state;

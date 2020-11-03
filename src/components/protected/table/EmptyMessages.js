@@ -1,7 +1,7 @@
 import React from 'react'
 import { Header, Icon, Segment } from 'semantic-ui-react';
 
-const EmptyComponent = ({icon,content,actions}) => (
+const EmptyMessages = ({icon,content,actions}) => (
   <Segment placeholder>
     <Header icon>
       <Icon name={icon} />
@@ -13,4 +13,4 @@ const EmptyComponent = ({icon,content,actions}) => (
   </Segment>
 )
 
-export default EmptyComponent;
+export default EmptyMessages;

@@ -7,6 +7,8 @@ import {Grid} from 'semantic-ui-react';
 
 class SignUp extends React.Component{
 
+
+
     onSubmit = (formValues)=>{
         this.props.signUp(formValues)
     }
@@ -17,7 +19,7 @@ class SignUp extends React.Component{
             return(
                     <Grid textAlign='center' style={{ height: '90vh' }} verticalAlign='middle'>
                         <Grid.Column style={{ maxWidth: 450 }}>
-                            <SignUpForm screen_loader_active={this.props.screen_loader_active} serverError={this.props.serverError} title='Sign Up' onSubmit={this.onSubmit} />
+                            <SignUpForm validate={this.validate} screen_loader_active={this.props.screen_loader_active} serverError={this.props.serverError} title='Sign Up' onSubmit={this.onSubmit} />
                         </Grid.Column>
                     </Grid>
             )

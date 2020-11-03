@@ -1,8 +1,9 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {isAuth} from '../actions';
-import Unauthorized from './Unauthorized';
+import {isAuth} from '../../actions';
+import Unauthorized from '../public/Unauthorized';
+import AppGrid from '../AppGrid';
 
 class PrivateRoute extends React.Component {
 
@@ -11,13 +12,18 @@ class PrivateRoute extends React.Component {
     }
 
     render(){
-        const {component:Component,auth,...rest} = this.props;
+        const {component:Component,auth,path,...rest} = this.props;
+        
         return(
             <Route {...rest} render={props=>{
                 if(!auth.isLoggedIn){
                     return <Unauthorized/>
                 }
-                return <Component {...props}/>
+                return (
+                        <AppGrid path={path}>
+                                    <Component {...props}/>
+                        </AppGrid>
+                )
             }} />
         )
     }

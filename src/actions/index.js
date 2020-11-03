@@ -1,7 +1,7 @@
 import authUrl from '../api/authUrl';
-import messagesUrl from '../api/messagesUrl'
-import history from '../Helpers/History';
-import authHeader from '../Helpers/AuthHeader'
+import messagesUrl from '../api/messagesUrl';
+import history from '../helpers/History';
+import authHeader from '../helpers/AuthHeader';
 import {
     SIGN_IN,
     SIGN_OUT,
@@ -25,6 +25,8 @@ import {
     SERVER_ERROR_CLEAN
     } from './types';
 
+import {PATH} from '../helpers/Constants';
+
 
 export const signIn = (formValues) => async (dispatch) =>{
     dispatch({type:ACTIVE_SCREENLOADER, payload:{}})
@@ -41,7 +43,7 @@ export const signIn = (formValues) => async (dispatch) =>{
         localStorage.setItem("user", JSON.stringify(response.data));
         dispatch({type:SIGN_IN,payload:response.data});
         dispatch({type:DISABLE_SCREENLOADER, payload:{}})
-        history.push('/inbox');
+        history.push(PATH.INBOX);
     }catch(error){
         dispatch({type:FAILED_SIGNIN,payload:error.message})
         dispatch({type:DISABLE_SCREENLOADER, payload:{}})
@@ -65,7 +67,7 @@ export const signUp = (formValues) => async (dispatch) =>{
             }, 4000);
         }
         dispatch({type:DISABLE_SCREENLOADER, payload:{}})
-        history.push('/');
+        history.push(PATH.SIGN_IN);
     }catch(error){
         dispatch({type:FAILED_SIGNUP,payload:error.message})
         dispatch({type:DISABLE_SCREENLOADER, payload:{}})
@@ -80,7 +82,7 @@ export const signUp = (formValues) => async (dispatch) =>{
 export const signOut = () => async (dispatch) =>{
     localStorage.removeItem("user");
     dispatch({type:SIGN_OUT,payload:{}});
-    history.push('/');
+    history.push(PATH.SIGN_IN);
 }
 
 export const isAuth =() => async (dispatch) => {
@@ -185,16 +187,19 @@ export const fetchUsers = () => async (dispatch) =>{
 
 export const createMessage = (formValues) => async (dispatch) =>{
 
-    const newFormValues = {
+    const serverFormat = {
         reciver:parseInt(formValues.reciver),
         message:formValues.message,
         subject:formValues.subject
     }
-    const response = await messagesUrl.post('/message',{...newFormValues},authHeader());
+    const response = await messagesUrl.post('/message',{...serverFormat},authHeader());
 
     if(response.data.success){
         dispatch({type:CREATE_MESSAGE,payload:response.data.response});
-        history.push('/inbox/sent');
+        history.push(PATH.SENT);
+    }else{
+        history.push(PATH.SENT);
+        dispatch(serverErrorActionCreator(SERVER_ERROR_SHOW,response.data.message));
     }
 }
 
@@ -204,12 +209,12 @@ export const deleteMessage = (id,currentUserId,sender) => async (dispatch) =>{
     if(response.data.success){
         dispatch({type:DELETE_MESSAGE,payload:id})
         if(currentUserId === sender){
-            return history.push('/inbox/sent')
+            return history.push(PATH.SENT)
         }
-        history.push('/inbox');
+        history.push(PATH.INBOX);
     }else{
-        alert('Cant delete this message')
-        history.push('/inbox');
+        history.push(PATH.INBOX);
+        dispatch(serverErrorActionCreator(SERVER_ERROR_SHOW,response.data.error));
     }
 }
 

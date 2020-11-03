@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Segment,Header,Button} from 'semantic-ui-react'
+import { Segment,Header,Button} from 'semantic-ui-react';
+import {PATH} from '../../../helpers/Constants';
 
 const MessageView = ({header,sent,reciver,subject,content}) => (
     <Segment placeholder>
@@ -17,7 +18,7 @@ const MessageView = ({header,sent,reciver,subject,content}) => (
                 <Segment textAlign='center'>Message content: {content}</Segment>
             </Segment.Group>
             <Segment>
-                <Button as={Link} to="/inbox">Back To Inbox</Button>
+                <Button as={Link} to={PATH.INBOX}>Back To Inbox</Button>
             </Segment>
         </Segment.Group>
     </Segment>
