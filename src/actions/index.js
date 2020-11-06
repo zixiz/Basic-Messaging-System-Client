@@ -42,7 +42,6 @@ export const signIn = (formValues) => async (dispatch) =>{
 
         localStorage.setItem("user", JSON.stringify(response.data));
         dispatch({type:SIGN_IN,payload:response.data});
-        dispatch({type:DISABLE_SCREENLOADER, payload:{}})
         history.push(PATH.INBOX);
     }catch(error){
         dispatch({type:FAILED_SIGNIN,payload:error.message})

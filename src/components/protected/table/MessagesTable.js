@@ -41,7 +41,7 @@ class MessagesTable extends React.Component{
                 <Table.Row key={message.id}>
                     <Table.Cell width={3}>{this.renderRecivedOrSent(message)}</Table.Cell>
                     <Table.Cell><Link to={`/inbox/${message.id}`}> {message.subject} - {message.message}</Link></Table.Cell>
-                    <Table.Cell width={2} textAlign='center'><Button variant="secondary" as={Link} to={`/inbox/delete/${message.id}`}>Delete</Button></Table.Cell>
+                    <Table.Cell width={2} textAlign='center'><Button variant="secondary" color='grey' as={Link} to={`/inbox/delete/${message.id}`}>Delete</Button></Table.Cell>
                 </Table.Row>
             )
         });

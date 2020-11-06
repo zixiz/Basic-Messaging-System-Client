@@ -2,7 +2,6 @@ import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 import { Button, Form, Header, Message, Segment } from 'semantic-ui-react'
 
-
 class SignUpForm extends React.Component{
 
     renderError({error,touched}){

@@ -3,6 +3,8 @@ import {Field, reduxForm} from 'redux-form';
 import { Button, Form, Header, Message, Segment } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 
+import {PATH} from "../../helpers/Constants";
+
 class SignInForm extends React.Component{
 
     renderError({error,touched}){
@@ -45,7 +47,7 @@ class SignInForm extends React.Component{
                         <Message negative>{serverError}</Message>
                     )}
                     <Message>
-                        New to us? <Link to="/signup">Sign Up</Link>
+                        New to us? <Link to={PATH.SIGN_UP}>Sign Up</Link>
                     </Message>
                 </Segment>                
             </Form>

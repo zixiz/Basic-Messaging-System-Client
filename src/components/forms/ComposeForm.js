@@ -14,24 +14,24 @@ class ComposeForm extends React.Component{
         }
     }
 
-    renderText = ({input,label,type,meta,icon}) =>{
-        if(type === 'text'){
+    renderText = ({input,label,type,meta}) =>{
+        if(type ===  "text-area"){
             return (
-                <React.Fragment>
-                    <Form.Input  placeholder={label} {...input} type={type} />
-                    {this.renderError(meta)}
-                </React.Fragment>
-            )
+                    <React.Fragment>
+                            <Form.Input control={TextArea} placeholder={label} {...input} type={type} />
+                            {this.renderError(meta)}
+                    </React.Fragment>
+                    )
         }
         return (
             <React.Fragment>
-                    <Form.Input control={TextArea} placeholder={label} {...input} type={type} />
-                    {this.renderError(meta)}
+                <Form.Input placeholder={label} {...input} type={type} />
+                {this.renderError(meta)}
             </React.Fragment>
         )
     }
 
-    renderSelectField = ({ input, label, type, meta, children }) =>{
+    renderSelectField = ({ input, meta, children }) =>{
         
         return (
             <React.Fragment>
@@ -70,7 +70,7 @@ class ComposeForm extends React.Component{
                     <Field name="message" validate={required} type="text-area" component={this.renderText} label="Enter Message"/>
                     {error && <strong>{error}</strong>}
                     <Button color='blue' disabled={pristine || submitting}>
-                        Compose
+                        Send
                     </Button>
                 </Segment>
             </Form>

@@ -15,7 +15,8 @@ class MessagesSubMenu extends React.Component {
           active={path === PATH.INBOX}
           as={Link} to={PATH.INBOX}
         >
-        <Icon name='mail' />
+        <Icon name='mail'
+        color={path === PATH.INBOX ? 'blue' : 'grey'}/>
           Inbox
         </Menu.Item>
         <Menu.Item
@@ -23,14 +24,17 @@ class MessagesSubMenu extends React.Component {
           active={path === PATH.SENT}
           as={Link} to={PATH.SENT}
         >
-        <Icon name='send' />
+        <Icon name='send'
+        color={path === PATH.SENT ? 'blue' : 'grey'}/>
           Sent
         </Menu.Item>
         <Menu.Item
           name='compose'
+          active={path === PATH.COMPOSE}
           as={Link} to={PATH.COMPOSE}
         >
-        <Icon name="pencil"/>
+        <Icon name="pencil"
+        color={path === PATH.COMPOSE ? 'blue' : 'grey'}/>
           Compose
         </Menu.Item>
       </Menu>

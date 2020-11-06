@@ -28,10 +28,10 @@ class sentMessages extends React.Component {
 
     renderEmptyOrTable(){
         const {screen_loader_active,empty_messages,messages ,serverError} = this.props;
-        if(screen_loader_active){
+        if(screen_loader_active || serverError){
             return null
         }
-        if(empty_messages || serverError){
+        if(empty_messages){
            return <EmptyComponent icon='send' content="You don't have any sent messages" actions={this.renderActions()}/>
         }
         return(

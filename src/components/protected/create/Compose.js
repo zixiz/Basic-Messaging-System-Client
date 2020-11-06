@@ -18,7 +18,7 @@ class Compose extends React.Component {
         const {screen_loader_active} = this.props;
         return (
         <Grid textAlign='center' style={{ height: '70vh' }} verticalAlign='middle'>
-            <Grid.Column style={{ maxWidth: 550 }}>
+            <Grid.Column style={{ maxWidth: 750 }}>
                 <ComposeForm screen_loader_active={screen_loader_active} header='Compose' onSubmit={this.onSubmit} users={this.props.users} />
             </Grid.Column>
         </Grid >

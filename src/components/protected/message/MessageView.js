@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Segment,Header,Button} from 'semantic-ui-react';
 import {PATH} from '../../../helpers/Constants';
 
-const MessageView = ({header,sent,reciver,subject,content}) => (
+const MessageView = ({header,sent,reciver,subject,content,deleteId}) => (
     <Segment placeholder>
         <Segment.Group>
             <Segment textAlign='center'>
@@ -12,13 +12,17 @@ const MessageView = ({header,sent,reciver,subject,content}) => (
                 </Header>
             </Segment>
             <Segment.Group>
-                <Segment textAlign='center'>From: {sent}</Segment>
-                <Segment textAlign='center'>To: {reciver}</Segment>
-                <Segment textAlign='center'>Subject: {subject}</Segment>
-                <Segment textAlign='center'>Message content: {content}</Segment>
+                <Segment>From: {sent}</Segment>
+                <Segment>To: {reciver}</Segment>
+                <Segment>Subject: {subject}</Segment>
+                <Segment>Message content: {content}</Segment>
             </Segment.Group>
-            <Segment>
-                <Button as={Link} to={PATH.INBOX}>Back To Inbox</Button>
+            <Segment textAlign='center'>
+                <Button.Group>
+                    <Button as={Link} color="grey" to={PATH.INBOX}>Back To Inbox</Button>
+                    <Button.Or text={''}/>
+                    <Button negative as={Link} to={`/inbox/delete/${deleteId}`}>Delete</Button>
+                </Button.Group>
             </Segment>
         </Segment.Group>
     </Segment>

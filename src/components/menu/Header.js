@@ -14,7 +14,7 @@ class Header extends React.Component{
 
     renderUserLinks(){
         const {full_name,isLoggedIn, email} = this.props;
-        
+
         if(isLoggedIn){
             return(
                 <React.Fragment>
@@ -42,7 +42,7 @@ class Header extends React.Component{
         return(
             <Menu pointing fluid inverted>
                 {isLoggedIn ? <Menu.Item  as={Link} to={PATH.INBOX}>Home</Menu.Item>:
-                <Menu.Item as={Link} to={PATH.SIGN_IN}>Messaging Sys</Menu.Item>}
+                <Menu.Item as={Link} to={PATH.SIGN_IN}>Messaging System</Menu.Item>}
                 <Menu.Menu position="right" id="sys-navbar">
                     {this.renderUserLinks()}
                 </Menu.Menu>

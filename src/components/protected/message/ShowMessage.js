@@ -22,20 +22,24 @@ class ShowMessage extends React.Component{
 
     renderMessageView(){
 
-        const {message,mail,user,failed_show_message,match,screen_loader_active} = this.props;
+        const {message,mail,user,failed_show_message, match,screen_loader_active} = this.props;
         if(screen_loader_active){
             return null
         }
         if(failed_show_message){
             return <CustomModal icon="thumbs down" closeModalPath={PATH.INBOX} 
                                 title={message.error} 
-                                content="Ho no, it seems like you try to reach a message that you can't view" 
+                                content="Oh no, it seems like you're trying to reach a message that you can't view." 
                                 actions={<Button as={Link} to={PATH.INBOX} color="blue">Back to inbox</Button>}/>
         }else{
             if(message.sender === user.userId){
-                return <MessageView header={`Message ${match.params.id}`} sent={user.email} reciver={mail.email} subject={message.subject} content={message.message}/>
+                return <MessageView header={`${message.subject}`} sent={user.email} 
+                        reciver={mail.email} subject={message.subject} 
+                        content={message.message} deleteId={match.params.id}/>
            }else{
-               return <MessageView header={`Message ${match.params.id}`} sent={mail.email} reciver={user.email} subject={message.subject} content={message.message}/>
+               return <MessageView header={`${message.subject}`} sent={mail.email} 
+                        reciver={user.email} subject={message.subject} 
+                        content={message.message} deleteId={match.params.id}/>
            }
         }   
     }

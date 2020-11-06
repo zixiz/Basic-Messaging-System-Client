@@ -23,16 +23,16 @@ class RecivedMessages extends React.Component {
 
     renderActions(){
         return (
-                <Button as={Link} to={PATH.COMPOSE}>Compose</Button>
+                <Button as={Link} color="blue" to={PATH.COMPOSE}>Compose</Button>
         )
     }
 
     renderEmptyOrTable(){
         const {screen_loader_active,empty_messages,messages,serverError} = this.props;
-        if(screen_loader_active){
+        if(screen_loader_active || serverError){
             return null
         }
-        if(empty_messages || serverError){
+        if(empty_messages){
            return <EmptyComponent icon='inbox' content="You don't have any messages in the inbox" actions={this.renderActions()}/>
         }
         return(
