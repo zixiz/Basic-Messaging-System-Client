@@ -10,9 +10,9 @@ const Unauthorized = () =>{
     return(
         <CustomeModal 
         closeModalPath={PATH.SIGN_IN} 
-        title="You Unauthorized"
+        title="Unauthorized"
         icon="lock"
-        content="Please Sign In Before!"
+        content="Please Sign In First!"
         actions={<Button as={Link} to={PATH.SIGN_IN} color="blue">SignIn</Button>}/>
     )
 }
