@@ -21,7 +21,7 @@ class PrivateRoute extends React.Component {
                 }
                 return (
                         <AppGrid path={path}>
-                                    <Component {...props}/>
+                            <Component {...props}/>
                         </AppGrid>
                 )
             }} />
