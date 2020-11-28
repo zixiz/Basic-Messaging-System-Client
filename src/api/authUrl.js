@@ -2,5 +2,5 @@ import axios from 'axios';
 import {PRODUCTION_SERVER,DEVELOPMENT_SERVER} from './Config';
 
 export default axios.create({
-    baseURL:PRODUCTION_SERVER.AUTH_URL
+    baseURL:DEVELOPMENT_SERVER.AUTH_URL
 })

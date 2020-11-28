@@ -1,39 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {isAuth} from '../../actions';
 import Unauthorized from '../public/Unauthorized';
 import AppGrid from '../AppGrid';
 
-class PrivateRoute extends React.Component {
+const PrivateRoute = ({component:Component,path,...rest}) => {
+    const auth = useSelector(state => state.auth);
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        const checkAuth =() =>{
+            dispatch(isAuth)
+        }
+        checkAuth();
+    },[dispatch]);
 
-    componentDidMount(){
-        this.props.isAuth();
-    }
-
-    render(){
-        const {component:Component,auth,path,...rest} = this.props;
-        
-        return(
-            <Route {...rest} render={props=>{
-                if(!auth.isLoggedIn){
-                    return <Unauthorized/>
-                }
-                return (
-                        <AppGrid path={path}>
-                            <Component {...props}/>
-                        </AppGrid>
-                )
-            }} />
-        )
-    }
+    return(
+        <Route {...rest} render={props=>{
+            if(!auth.isLoggedIn){
+                return <Unauthorized/>
+            }
+            return (
+                    <AppGrid path={path}>
+                        <Component {...props}/>
+                    </AppGrid>
+            )
+        }} />
+    )
+    
 
 }
     
 
-
-const mapStateToProps = (state) =>{
-    return {auth:state.auth}
-}
-
-export default connect(mapStateToProps,{isAuth})(PrivateRoute);
+export default PrivateRoute;

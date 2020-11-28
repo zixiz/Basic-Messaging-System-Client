@@ -2,7 +2,6 @@ import React from 'react'
 import { Header, Popup, Grid , Icon} from 'semantic-ui-react'
 
 const UserDataMenu = ({full_name,email}) => {
-
   return (
     <Popup trigger={<Icon name='user' />} flowing hoverable>
       <Grid centered>
