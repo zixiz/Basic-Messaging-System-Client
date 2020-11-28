@@ -1,6 +1,6 @@
 import React from 'react'; 
 import CustomeModal from '../../modal/Modal';
-import {fetchMessage,deleteMessage,cleareFailedShowMessage} from '../../../actions';
+import {fetchMessage,deleteMessage,cleareFailedShowMessage} from '../../../actions/messages';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';

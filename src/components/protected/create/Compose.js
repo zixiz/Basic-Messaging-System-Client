@@ -1,6 +1,6 @@
 import React from 'react'; 
 import {connect} from 'react-redux';
-import {fetchUsers,createMessage} from '../../../actions';
+import {fetchUsers,createMessage} from '../../../actions/messages';
 import ComposeForm from '../../forms/ComposeForm';
 import {Grid} from 'semantic-ui-react';
 

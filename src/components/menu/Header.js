@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Menu,Icon} from "semantic-ui-react";
 import {connect} from 'react-redux';
-import {isAuth,signOut} from '../../actions';
+import {isAuth,signOut} from '../../actions/auth';
 import {PATH} from '../../helpers/Constants';
 import UserDataMenu from './UserDataMenu';
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {isAuth} from '../../actions';
+import {isAuth} from '../../actions/auth';
 import Unauthorized from '../public/Unauthorized';
 import AppGrid from '../AppGrid';
 

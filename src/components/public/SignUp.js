@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {signUp} from '../../actions';
+import {signUp} from '../../actions/auth';
 import {Redirect} from 'react-router-dom';
 import SignUpForm from '../forms/SignUpForm';
 import {Grid} from 'semantic-ui-react';

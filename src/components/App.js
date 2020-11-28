@@ -4,7 +4,7 @@ import {Router,Route,Switch} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import {PATH} from '../helpers/Constants';
-import {serverErrorCleanUp} from '../actions';
+import {serverErrorCleanUp} from '../actions/serverErrors';
 import history from '../helpers/History';
 
 import Header from './menu/Header';

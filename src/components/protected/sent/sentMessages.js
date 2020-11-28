@@ -1,6 +1,6 @@
 import React from 'react'; 
 import {connect} from 'react-redux';
-import {fetachSentMessages,clearEmptyMessages} from '../../../actions';
+import {fetachSentMessages,clearEmptyMessages} from '../../../actions/messages';
 import MessagesTable from '../table/MessagesTable';
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
