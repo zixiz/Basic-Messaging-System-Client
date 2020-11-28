@@ -1,5 +1,5 @@
 import React from 'react'; 
-import CustomeModal from '../../modal/Modal';
+import CustomeModal from '../../customeModal/CustomeModal';
 import {fetchMessage,deleteMessage,cleareFailedShowMessage} from '../../../actions/messages';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';

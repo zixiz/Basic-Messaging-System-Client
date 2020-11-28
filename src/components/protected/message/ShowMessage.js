@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {fetchMessage, cleareFailedShowMessage} from '../../../actions/messages'
 import MessageView from './MessageView';
-import CustomModal from '../../modal/Modal';
+import CustomModal from '../../customeModal/CustomeModal';
 import {Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import ScreenLoader from '../../ScreenLoader';
