@@ -6,5 +6,6 @@ Email: ```test@gmail.com```
 
 Password: ```12345``` 
 
-[Server Code](https://github.com/zixiz/Basic-Messaging-System-Server)
+Using: React, react-router-dom, redux/react-redux and semantic-ui-react
 
+[Server Code](https://github.com/zixiz/Basic-Messaging-System-Server)
