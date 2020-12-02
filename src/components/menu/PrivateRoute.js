@@ -6,7 +6,7 @@ import Unauthorized from '../public/Unauthorized';
 import AppGrid from '../AppGrid';
 
 const PrivateRoute = ({component:Component,path,...rest}) => {
-    const auth = useSelector(state => state.auth);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -14,11 +14,11 @@ const PrivateRoute = ({component:Component,path,...rest}) => {
             dispatch(isAuth)
         }
         checkAuth();
-    },[dispatch]);
+    },[]);
 
     return(
         <Route {...rest} render={props=>{
-            if(!auth.isLoggedIn){
+            if(!isLoggedIn){
                 return <Unauthorized/>
             }
             return (

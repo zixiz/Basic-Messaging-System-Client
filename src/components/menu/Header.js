@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Menu,Icon} from "semantic-ui-react";
 import {connect} from 'react-redux';
@@ -6,22 +6,24 @@ import {isAuth,signOut} from '../../actions/auth';
 import {PATH} from '../../helpers/Constants';
 import UserDataMenu from './UserDataMenu';
 
-class Header extends React.Component{
+const Header = ({isLoggedIn,full_name,email,isAuth,signOut}) =>{
+    
+    useEffect(() => {
+        const checkAuth =() =>{
+            isAuth()
+        }
+        checkAuth();
+    },[]);
 
-    componentDidMount(){
-        this.props.isAuth();
-    }
-
-    renderUserLinks(){
-        const {full_name,isLoggedIn, email} = this.props;
-
+    const renderUserLinks = () =>{
         if(isLoggedIn){
+            console.log("work")
             return(
                 <React.Fragment>
                     <Menu.Item >
                         <UserDataMenu full_name={full_name} email={email}/>
                     </Menu.Item> 
-                    <Menu.Item onClick={()=>this.props.signOut()}>
+                    <Menu.Item onClick={()=>signOut()}>
                         <Icon name='sign out alternate' circular />
                         Sign Out
                     </Menu.Item>
@@ -36,19 +38,16 @@ class Header extends React.Component{
         )
     }
     
+    return(
+        <Menu pointing fluid inverted>
+            {isLoggedIn ? <Menu.Item  as={Link} to={PATH.INBOX}>Home</Menu.Item>:
+            <Menu.Item as={Link} to={PATH.SIGN_IN}>Messaging System</Menu.Item>}
+            <Menu.Menu position="right" id="sys-navbar">
+                {renderUserLinks()}
+            </Menu.Menu>
+        </Menu>
+        )
 
-    render(){
-        const {isLoggedIn} = this.props;
-        return(
-            <Menu pointing fluid inverted>
-                {isLoggedIn ? <Menu.Item  as={Link} to={PATH.INBOX}>Home</Menu.Item>:
-                <Menu.Item as={Link} to={PATH.SIGN_IN}>Messaging System</Menu.Item>}
-                <Menu.Menu position="right" id="sys-navbar">
-                    {this.renderUserLinks()}
-                </Menu.Menu>
-            </Menu>
-            )
-    }
 }
 
 const mapStateToProps = (state) =>{
