@@ -56,13 +56,4 @@ const RecivedMessages = () => {
     
 }
 
-// const mapStateToProps = (state) =>{
-//     return {messages:Object.values(state.messages.recived),
-//         empty_messages:state.messages.empty_messages, 
-//         screen_loader_active:state.loader.screen_loader_active,
-//         serverError:state.internalServerError.error
-//     }
-// }
-
-// export default connect(mapStateToProps,{fetachReciveMessages,clearEmptyMessages})(RecivedMessages);
 export default RecivedMessages;
