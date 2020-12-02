@@ -14,7 +14,7 @@ import NoFound from './public/NoFound';
 
 import InternalServerError from './InternalServerError';
 import RecivedMessages from './protected/inbox/RecivedMessages';
-import sentMessages from './protected/sent/sentMessages';
+import SentMessages from './protected/sent/sentMessages';
 import Compose from './protected/create/Compose';
 import PrivateRoute from './menu/PrivateRoute';
 import ShowMessage from './protected/message/ShowMessage';
@@ -37,7 +37,7 @@ const App = ()=> {
                     <Route path={PATH.SIGN_IN} exact component={SignIn} />
                     <Route path={PATH.SIGN_UP} exact component={SignUp} />
                     <PrivateRoute exact path={PATH.INBOX} component={RecivedMessages}/>
-                    <PrivateRoute exact path={PATH.SENT} component={sentMessages}/>
+                    <PrivateRoute exact path={PATH.SENT} component={SentMessages}/>
                     <PrivateRoute exact path={PATH.SHOW_MESSAGE} component={ShowMessage}/>
                     <PrivateRoute exact path={PATH.DELETE_MESSAGE} component={DeleteMessage}/>
                     <PrivateRoute path={PATH.COMPOSE} exact component={Compose} />

@@ -7,17 +7,16 @@ import {PATH} from '../../helpers/Constants';
 import UserDataMenu from './UserDataMenu';
 
 const Header = ({isLoggedIn,full_name,email,isAuth,signOut}) =>{
-    
+
     useEffect(() => {
         const checkAuth =() =>{
             isAuth()
         }
         checkAuth();
-    },[]);
+    },[isAuth]);
 
     const renderUserLinks = () =>{
         if(isLoggedIn){
-            console.log("work")
             return(
                 <React.Fragment>
                     <Menu.Item >

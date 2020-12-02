@@ -14,7 +14,7 @@ const PrivateRoute = ({component:Component,path,...rest}) => {
             dispatch(isAuth)
         }
         checkAuth();
-    },[]);
+    },[dispatch]);
 
     return(
         <Route {...rest} render={props=>{

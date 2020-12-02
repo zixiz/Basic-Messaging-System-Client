@@ -10,22 +10,22 @@ import ScreenLoader from '../../ScreenLoader';
 import {PATH} from '../../../helpers/Constants';
 
 const RecivedMessages = () => {
-    const messages = useSelector(state => Object.values(state.messages.recived))
-    const empty_messages = useSelector(state => state.messages.empty_messages)
-    const screen_loader_active = useSelector(state => state.loader.screen_loader_active)
-    const serverError = useSelector(state => state.internalServerError.error)        
+    const messages = useSelector(state => Object.values(state.messages.recived));
+    const empty_messages = useSelector(state => state.messages.empty_messages);
+    const screen_loader_active = useSelector(state => state.loader.screen_loader_active);
+    const serverError = useSelector(state => state.internalServerError.error); 
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchMessages =() =>{
-            dispatch(fetachReciveMessages())
+            dispatch(fetachReciveMessages());
         }
         fetchMessages();
 
         return () => {
-            dispatch(clearEmptyMessages())
+            if(empty_messages) dispatch(clearEmptyMessages());
         }
-    },[]);
+    },[dispatch]);
 
     const renderActions = () =>{
         return (
