@@ -1,37 +1,38 @@
-import React from 'react'; 
+import React, {useEffect} from 'react';
 import CustomeModal from '../../customeModal/CustomeModal';
 import {fetchMessage,deleteMessage,cleareFailedShowMessage} from '../../../actions/messages';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
 import {PATH} from '../../../helpers/Constants';
 
-class DeleteMessage extends React.Component{
+const DeleteMessage = ({match}) =>{
+    const messageToDelete = useSelector(state => state.messages.s_message);
+    const currentUserId = useSelector(state => state.auth.userId);
+    const failed_show_message = useSelector(state => state.messages.failed_show_message);
+    const dispatch = useDispatch();
 
-    componentDidMount(){
-        this.props.fetchMessage(this.props.match.params.id);
-    }
+    useEffect(() => {
+        const getMessage =() =>{
+            dispatch(fetchMessage(match.params.id))
+        }
+        getMessage();
 
-    componentWillUnmount(){
-        const {failed_show_message} = this.props;
-        if(failed_show_message) this.props.cleareFailedShowMessage();
-    }
+        return () => {
+            if(failed_show_message) dispatch(cleareFailedShowMessage())
+        }
+    },[dispatch]);
 
-
-    renderActions(){
-        const {id} = this.props.match.params;
-        const {currentUserId,messageToDelete} = this.props;
+    const renderActions = () =>{
         return (
             <React.Fragment>
-                <Button onClick={()=>this.props.deleteMessage(id,currentUserId,messageToDelete.sender)} color="red">Delete</Button>
+                <Button onClick={()=>dispatch(deleteMessage(match.params.id,currentUserId,messageToDelete.sender))} color="red">Delete</Button>
                 <Button as={Link} to={currentUserId === messageToDelete.sender ? PATH.SENT : PATH.INBOX}>Cancel</Button>
             </React.Fragment>
         )
     }
 
-
-    renderModal(){
-        const {currentUserId,messageToDelete,failed_show_message} = this.props;
+    const renderModal = () =>{
         if(failed_show_message){
             return(
                 <CustomeModal
@@ -49,24 +50,18 @@ class DeleteMessage extends React.Component{
                 closeModalPath = {currentUserId === messageToDelete.sender ? PATH.SENT : PATH.INBOX}
                 title="Delete Message"
                 content={`Are you sure you want to delete the message: ${messageToDelete.subject}?`}
-                actions={this.renderActions()}
+                actions={renderActions()}
                 />
             )
         }
     }
 
-    render(){
-        return (
-            <React.Fragment>
-                {this.renderModal()}
-            </React.Fragment>
+    return (
+        <React.Fragment>
+            {renderModal()}
+        </React.Fragment>
         )
-    }
+
 }
 
-const mapStateToProps = (state) =>{
-    return {messageToDelete: state.messages.s_message,currentUserId:state.auth.userId,
-        failed_show_message:state.messages.failed_show_message}
-}
-
-export default connect(mapStateToProps,{fetchMessage,deleteMessage,cleareFailedShowMessage})(DeleteMessage);
+export default DeleteMessage;

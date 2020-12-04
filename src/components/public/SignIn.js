@@ -1,23 +1,27 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signIn} from '../../actions/auth'
 import {Redirect} from 'react-router-dom';
 import SignInForm from '../forms/SignInForm'
 import {Grid} from 'semantic-ui-react';
 
-class SignIn extends React.Component{
+const SignIn = () =>{
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const serverError = useSelector(state => state.auth.failed_signin_error);
+    const screen_loader_active = useSelector(state => state.loader.screen_loader_active);
+    const dispatch = useDispatch();
 
-    onSubmit = (formValues)=>{
-        this.props.signIn(formValues)
+    const onSubmit = (formValues)=>{
+        dispatch(signIn(formValues));
     }
 
 
-    renderSignInIfAuth(){
-        if(!this.props.isLoggedIn){
+    const renderSignInIfAuth =()=>{
+        if(!isLoggedIn){
             return(
                 <Grid textAlign='center' style={{ height: '90vh' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
-                            <SignInForm screen_loader_active={this.props.screen_loader_active} serverError={this.props.serverError} title='Sign In' onSubmit={this.onSubmit}/>
+                            <SignInForm screen_loader_active={screen_loader_active} serverError={serverError} title='Sign In' onSubmit={onSubmit}/>
                     </Grid.Column>
                 </Grid>
             )
@@ -25,17 +29,11 @@ class SignIn extends React.Component{
         return(<Redirect to="/inbox"/>)
     }
 
-    render(){
-        return(
+    return(
             <React.Fragment>
-                {this.renderSignInIfAuth()}
+                {renderSignInIfAuth()}
             </React.Fragment>
         )
-    }
 }
 
-const mapStateToProps = (state) =>{
-    return {isLoggedIn:state.auth.isLoggedIn,serverError:state.auth.failed_signin_error,screen_loader_active:state.loader.screen_loader_active}
-}
-
-export default connect(mapStateToProps,{signIn})(SignIn);
+export default SignIn;

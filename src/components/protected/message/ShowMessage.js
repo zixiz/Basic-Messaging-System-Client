@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchMessage, cleareFailedShowMessage} from '../../../actions/messages'
+import {fetchMessage, cleareFailedShowMessage} from '../../../actions/messages';
 import MessageView from './MessageView';
 import CustomModal from '../../customeModal/CustomeModal';
 import {Button} from 'semantic-ui-react';

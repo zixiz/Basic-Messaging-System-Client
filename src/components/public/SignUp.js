@@ -1,25 +1,28 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signUp} from '../../actions/auth';
 import {Redirect} from 'react-router-dom';
 import SignUpForm from '../forms/SignUpForm';
 import {Grid} from 'semantic-ui-react';
 
-class SignUp extends React.Component{
+const SignUp = () =>{
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const serverError = useSelector(state => state.auth.failed_signin_error);
+    const screen_loader_active = useSelector(state => state.loader.screen_loader_active);
+    const dispatch = useDispatch();
 
 
-
-    onSubmit = (formValues)=>{
-        this.props.signUp(formValues)
+    const onSubmit = (formValues)=>{
+        dispatch(signUp(formValues))
     }
 
 
-    renderSignInIfAuth(){
-        if(!this.props.isLoggedIn){
+    const renderSignInIfAuth =()=>{
+        if(!isLoggedIn){
             return(
                     <Grid textAlign='center' style={{ height: '90vh' }} verticalAlign='middle'>
                         <Grid.Column style={{ maxWidth: 450 }}>
-                            <SignUpForm validate={this.validate} screen_loader_active={this.props.screen_loader_active} serverError={this.props.serverError} title='Sign Up' onSubmit={this.onSubmit} />
+                            <SignUpForm screen_loader_active={screen_loader_active} serverError={serverError} title='Sign Up' onSubmit={onSubmit} />
                         </Grid.Column>
                     </Grid>
             )
@@ -27,17 +30,13 @@ class SignUp extends React.Component{
         return(<Redirect to="/inbox"/>)
     }
 
-    render(){
-        return(
+
+    return(
             <React.Fragment>
-                {this.renderSignInIfAuth()}
+                {renderSignInIfAuth()}
             </React.Fragment>
         )
-    }
+    
 }
 
-const mapStateToProps = (state) =>{
-    return {isLoggedIn:state.auth.isLoggedIn ,serverError:state.auth.failed_signup_error, screen_loader_active:state.loader.screen_loader_active}
-}
-
-export default connect(mapStateToProps,{signUp})(SignUp);
+export default SignUp;
