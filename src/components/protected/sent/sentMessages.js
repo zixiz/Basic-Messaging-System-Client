@@ -26,7 +26,7 @@ const SentMessages = () => {
         return () => {
             if(empty_messages) dispatch(clearEmptyMessages())
         }
-    },[dispatch]);
+    },[dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const renderActions = () =>{
         return (
